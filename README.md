@@ -16,12 +16,13 @@ First get started by installing and setting up Vagrant and Virtualbox.  More inf
 
 ### The following versions of software are part of the Puppet modules
 For Graphite, these can be found in: vagrant-dash/manifests/modules/packages/files/graphite/
-carbon-0.9.9
-graphite-web-0.9.9
-whisper-0.9.9
+*carbon-0.9.9
+*graphite-web-0.9.9
+*whisper-0.9.9
 
 For StatsD, this can be found in: vagrant-dash/manifests/modules/packages/files/statsd/statsd/
-statsd-0.2.1
+*statsd-0.2.1
+*NodeJS
 
 
 ### Once complete there are a few files you should consider editing:
@@ -41,11 +42,11 @@ If you insist on using this before I fix these problems you can start the VM and
 
 ## TODO
 
--Need to cleanup graphite.pp and clean-up the dependancies in that file
--Place packages within the modules so that network connectivity isn't needed
-  -Create a script to update those packages on the host machine if wanted
--Add Gdash to the install
--Add Tasseo as well
--Lots more
+*-Need to cleanup graphite.pp and clean-up the dependancies in that file
+*-Place packages within the modules so that network connectivity isn't needed
+  *-Create a script to update those packages on the host machine if wanted
+*-Add Gdash to the install
+*-Add Tasseo as well
+*-Lots more
 
 
