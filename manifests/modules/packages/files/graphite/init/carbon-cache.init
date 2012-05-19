@@ -1,0 +1,65 @@
+#!/bin/bash
+#!/bin/bash
+#
+# This script is a clsuter that needs to be fixed, it starts and stops carbon-cache
+
+exec="/opt/graphite/bin/carbon-cache.py"
+prog=$(basename "$exec")
+CARBON_CONFIG_PATH="/opt/graphite/conf/carbon.conf"
+CARBON_CACHE_ARGS=""
+CARBON_CACHE_PIDFILE="/opt/graphite/storage/carbon-cache-a.pid"
+
+restart() {
+    stop
+    start
+}
+
+rh_status() {
+    status  "$JOB"
+}
+
+start() {
+    echo -n 'Starting carbon-cache...'
+    start-stop-daemon --start --exec "$exec" start --pidfile="$CARBON_CACHE_PIDFILE" 
+    retval=$?
+    echo
+    return $retval
+}
+
+stop() {
+    echo -n 'Stopping carbon-cache...'
+    start-stop-daemon --stop --pidfile="$CARBON_CACHE_PIDFILE"
+    retval=$?
+    echo
+    return $retval
+}
+
+case $1 in
+    condrestart|try-restart)
+        rh_status "$f" 2>/dev/null && restart "$f"
+        ;;
+    reload|force-reload)
+        restart
+        ;;
+    restart)
+        restart
+        ;;
+    start)
+        start
+        ;;
+    status)
+        rh_status
+        ;;
+    status_q)
+        rh_status >/dev/null 2>&1
+        ;;
+    stop)
+        stop
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop|status|restart|condrestart|try-restart|reload|force-reload}"
+        exit 2
+        ;;
+esac
+
+exit $?
