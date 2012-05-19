@@ -27,7 +27,7 @@ For StatsD, this can be found in: vagrant-dash/manifests/modules/packages/files/
 
 ### Once complete there are a few files you should consider editing:
 
-The following file should be renamed to <authorized_keys> and you should include your public SSH key in the file.
+The following file should be renamed to *authorized_keys* and you should include your public SSH key in the file.
 vagrant-dash/manifests/files/pub_keys/EXAMPLE.authorized_keys
 
 The below manifest for users can be edited to include your own username and password
