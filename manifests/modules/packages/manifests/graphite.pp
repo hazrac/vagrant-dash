@@ -3,7 +3,7 @@ class packages::graphite {
 
         include packages::aptget
 
-	# Get all the packages we need  
+	# Get all the packages we need
 	$graphite_packages = ['apache2', 'apache2-mpm-worker', 'apache2-utils', 'apache2.2-common', 'libapr1', 'libaprutil1', 'libaprutil1-dbd-sqlite3', 'python3.1', 'libpython3.1', 'python3.1-minimal', 'libapache2-mod-wsgi', 'libaprutil1-ldap', 'memcached', 'python-cairo-dev', 'python-django', 'python-ldap', 'python-memcache', 'python-pysqlite2', 'sqlite3', 'erlang-os-mon', 'erlang-snmp', 'bzr', 'libapache2-mod-python', 'python-setuptools', 'python-twisted']
 
 	# Define the versions of graphite, carbon, and whisper
@@ -16,6 +16,7 @@ class packages::graphite {
 		provider => apt,
 		require  => Exec['aptgetupdate'],
 	}
+
 	# TODO - Could you use a conditional to run this once?
 	file { $graphiteweb:
 		ensure	    => file,
@@ -127,7 +128,8 @@ class packages::graphite {
 	# Sets up initial DB
 	#TODO ISSUES HERE
 	exec { '/usr/bin/sudo /usr/bin/python /opt/graphite/webapp/graphite/manage.py syncdb':
-		require => File['graphite-vhost.conf'],
+	        alias   => 'syncdb',
+		require => Exec['/usr/bin/python /tmp/graphite/setup.py install'],
 	}
 	file { '/opt/graphite/storage':
 		ensure	  => directory,
@@ -135,8 +137,8 @@ class packages::graphite {
 	 	owner 	  => www-data,	
 		group	  => www-data,
 		recurse   => true,
-		require   => Exec['/usr/bin/python /tmp/graphite/setup.py install'],
-                subscribe => Exec['/usr/bin/python /tmp/whisper/setup.py install'],
+		require   => Exec['syncdb'],
+                subscribe => Exec['syncdb'],
 	}
 	file { 'local_settings.py':
 		ensure	=> file,

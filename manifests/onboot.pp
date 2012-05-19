@@ -31,7 +31,7 @@ file { '/etc/localtime':
   target => '/usr/share/zoneinfo/US/Eastern',
 }
 
-# If you are running a much newer version of VirtualBox you may need to update the guest additions.  Uncomment the lines below and this should be done automatically for you.
+# If you are running a much newer version of VirtualBox you may need to update the guest additions.  Uncomment the lines below and this should be done automatically for you. You need to put the guest additions ISO in vagrant-dash/manifests/files/Vboxadditions.
 # If you don't want to do this every time you spin up the node you should create a new box file, instructions on how to do that are here: http://vagrantup.com/docs/base_boxes.html
 
 # Ensure that Vbox has the most up-to-date Guest Additions 
