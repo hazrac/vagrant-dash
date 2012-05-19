@@ -12,7 +12,7 @@ In addition the configuration installs a puppet client which could be configured
 
 ## Configuration
 
-First get started by installing and setting up Vagrant and Virtualbox.  More information can be found here [Vagrant - getting started]: http://vagrantup.com/docs/getting-started/index.html. You'll then need to follow the Vagrant instructions to add a new box which needs the short name "dev51512", you can download the base box from here [Dev Box]: http://hazrac.morpheus.net/lucid32-dev51512.box.
+First get started by installing and setting up Vagrant and Virtualbox.  More information can be found here [Vagrant - getting started]:http://vagrantup.com/docs/getting-started/index.html. You'll then need to follow the Vagrant instructions to add a new box which needs the short name "dev51512", you can download the base box from here [Dev Box]:http://hazrac.morpheus.net/lucid32-dev51512.box.
 
 ### The following versions of software are part of the Puppet modules
 For Graphite, these can be found in: vagrant-dash/manifests/modules/packages/files/graphite/
@@ -42,11 +42,11 @@ If you insist on using this before I fix these problems you can start the VM and
 
 ## TODO
 
-*  -Need to cleanup graphite.pp and clean-up the dependancies in that file
-*  -Place packages within the modules so that network connectivity isn't needed
-  *  -Create a script to update those packages on the host machine if wanted
-*  -Add Gdash to the install
-*  -Add Tasseo as well
-*  -Lots more
+*  Need to cleanup graphite.pp and clean-up the dependancies in that file
+*  Place packages within the modules so that network connectivity isn't needed
+  *  Create a script to update those packages on the host machine if wanted
+*  Add Gdash to the install
+*  Add Tasseo as well
+*  Lots more
 
 
