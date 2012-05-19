@@ -43,6 +43,7 @@ class packages::graphite {
 	exec { '/usr/bin/python /tmp/graphite/setup.py install':
 		require => Exec[$graphite_untar],
 		cwd => '/tmp/graphite',
+		creates => '/opt/graphite',
 	}
 	file { 'graphite-vhost.conf':
 		ensure	=> file,
@@ -77,6 +78,7 @@ class packages::graphite {
 		require => File[$carbon],
 	}
 	exec { '/usr/bin/python /tmp/carbon/setup.py install':
+		alias   => 'carbon_install',
 		require => Exec[$carbon_untar],
 		cwd => '/tmp/carbon',
 	}
@@ -129,16 +131,17 @@ class packages::graphite {
 	#TODO ISSUES HERE
 	exec { '/usr/bin/sudo /usr/bin/python /opt/graphite/webapp/graphite/manage.py syncdb':
 	        alias   => 'syncdb',
-		require => Exec['/usr/bin/python /tmp/graphite/setup.py install'],
+		require => Exec['carbon_install'],
 	}
 	file { '/opt/graphite/storage':
-		ensure	  => directory,
-		path	  => '/opt/graphite/storage',
-	 	owner 	  => www-data,	
-		group	  => www-data,
-		recurse   => true,
-		require   => Exec['syncdb'],
-                subscribe => Exec['syncdb'],
+		ensure	     => directory,
+		path	     => '/opt/graphite/storage',
+	 	owner 	     => www-data,	
+		group	     => www-data,
+		recurse      => true,
+		recurselimit => 3,
+		require      => Exec['syncdb'],
+                subscribe    => Exec['syncdb'],
 	}
 	file { 'local_settings.py':
 		ensure	=> file,

@@ -32,9 +32,18 @@ vagrant-dash/manifests/files/pub_keys/EXAMPLE.authorized_keys
 The below manifest for users can be edited to include your own username and password
 vagrant-dash/manifests/modules/users/manifests/init.pp
 
+## Known Issues
+Normally this Vagrant config has quite a few VMs, I've slimmed it down to this one as it was the most useful.  Since moving it from a private repo to a public one a few things have broken, which I intent to fix shortly.  Notably:
+-the /opt/graphite/storage/graphite.db file will at times come up with the wrong permissions (root:root vs. www-data:www-data)
+-The initial boot time, with puppet runs, is close to 20 minutes! (it was near 3)
+
+If you insist on using this before I fix these problems you can start the VM and then go to the VM's IP in your web browser, which will bring up the graphite dashboard.  If you click on a broken graph it will tell you what the issue is.
+
 ## TODO
 
 -Need to cleanup graphite.pp and clean-up the dependancies in that file
+-Place packages within the modules so that network connectivity isn't needed
+  -Create a script to update those packages on the host machine if wanted
 -Add Gdash to the install
 -Add Tasseo as well
 -Lots more
