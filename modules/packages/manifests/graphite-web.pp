@@ -29,7 +29,7 @@ class packages::graphite-web {
     command => "bash -c 'export PYTHONPATH=/opt/graphite/webapp &&  cd /opt/graphite/webapp/graphite/ && python manage.py syncdb'",
     subscribe => Exec["install-webapp"],
     refreshonly => true,
-    user => $packages::graphite-params::web_user,
+    user => "$packages::graphite-params::web_user",
   }
 
   file { "$packages::graphite-params::apacheconf_dir/graphite.conf":
