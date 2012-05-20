@@ -1,4 +1,4 @@
-class packages::graphite::params {
+class packages::graphite-params {
   $build_dir = "/tmp/graphite_build_root"
 
   $whisper_dl_url = "http://launchpad.net/graphite/0.9/0.9.9/+download/whisper-0.9.9.tar.gz"
