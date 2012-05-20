@@ -1,6 +1,7 @@
 class packages::graphite::web {
 
   include packages::graphite::params
+  include packages::aptget
 
   exec { "download-webapp":
     command => "wget -O $packages::graphite::params::webapp_dl_loc $packages::graphite::params::webapp_dl_url",
@@ -31,7 +32,7 @@ class packages::graphite::web {
     user => $packages::graphite::params::web_user,
   }
 
-  file { "$apacheconf_dir/graphite.conf":
+  file { "$packages::graphite::params::apacheconf_dir/graphite.conf":
     source => "puppet:///modules/graphite/graphite-apache-vhost.conf" ,
     subscribe => Exec["install-webapp"],
   }
@@ -49,6 +50,7 @@ class packages::graphite::web {
 
   package {
     [python-ldap, python-cairo, python-django, python-simplejson, libapache2-mod-wsgi, python-memcache, python-pysqlite2, python-rrdtool]:
-      ensure => latest;
+      require => Exec['aptgetupdate'],
+      ensure  => latest;
   }
 }

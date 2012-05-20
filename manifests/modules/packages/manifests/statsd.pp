@@ -26,25 +26,25 @@ file { '/etc/init.d/statsd':
   package { 'python-software-properties':
   	    provider => apt,
 	    ensure   => present,
-            require  => Exec['/usr/bin/apt-get update'],
+            require  => Exec['aptgetupdate'],
   }
 
   package { 'git-core':
   	    provider => apt,
 	    ensure   => present,
-            require  => Exec['/usr/bin/apt-get update'],
+            require  => Exec['aptgetupdate'],
   }
 
   package { 'nodejs':
   	    provider => apt,
 	    ensure   => present,
-            require  => Exec['/usr/bin/apt-get update'],
+            require  => Exec['aptgetupdate'],
   }
 
   package { 'npm':
   	    provider => apt,
 	    ensure   => present,
-            require  => Exec['/usr/bin/apt-get update'],
+            require  => Exec['aptgetupdate'],
   }
 
 }

@@ -4,14 +4,14 @@ class packages::puppet-client {
 
  package { 'facter':
    ensure  => present,
-   require => Exec['/usr/bin/apt-get update'],
+   require => Exec['aptgetupdate'],
   }
 
  package { 'puppet':
    #ensure  => '2.7.13-1puppetlabs1',
    #ensure  => '2.7.1',
    ensure  => latest,
-   require => Exec['/usr/bin/apt-get update'],
+   require => Exec['aptgetupdate'],
   }
 
  file { '/etc/init.d/puppetd':
