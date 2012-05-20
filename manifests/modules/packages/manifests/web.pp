@@ -1,24 +1,24 @@
-class graphite::web {
+class packages::graphite::web {
 
-  include graphite::params
+  include packages::graphite::params
 
   exec { "download-webapp":
-    command => "wget -O $graphite::params::webapp_dl_loc $graphite::params::webapp_dl_url",
-    creates => "$graphite::params::webapp_dl_loc",
-    require => File["$graphite::params::build_dir"],
+    command => "wget -O $packages::graphite::params::webapp_dl_loc $packages::graphite::params::webapp_dl_url",
+    creates => "$packages::graphite::params::webapp_dl_loc",
+    require => File["$packages::graphite::params::build_dir"],
   }
 
   exec { "unpack-webapp":
     # true is needed to work around a problem with execs and built ins. https://projects.puppetlabs.com/issues/4884 -- I believe this is fixed
-    command => "bash -c 'cd $graphite::params::build_dir && tar -zxvf $graphite::params::webapp_dl_loc",
+    command => "bash -c 'cd $packages::graphite::params::build_dir && tar -zxvf $packages::graphite::params::webapp_dl_loc",
     subscribe => Exec["download-webapp"],
     refreshonly => true,
-    creates => "$graphite::params::build_dir/graphite-web-0.9.9/",
+    creates => "$packages::graphite::params::build_dir/graphite-web-0.9.9/",
   }
 
   exec { "install-webapp":
     # true is needed to work around a problem with execs and built ins. https://projects.puppetlabs.com/issues/4884 -- I believe this is fixed
-    command => "cd $graphite::params::build_dir/graphite-web-0.9.9 && python setup.py install",
+    command => "cd $packages::graphite::params::build_dir/graphite-web-0.9.9 && python setup.py install",
     subscribe => Exec["unpack-webapp"],
     refreshonly => true,
     creates => "/opt/graphite",
@@ -28,7 +28,7 @@ class graphite::web {
     command => "bash -c 'export PYTHONPATH=/opt/graphite/webapp &&  cd /opt/graphite/webapp/graphite/ && python manage.py syncdb'",
     subscribe => Exec["install-webapp"],
     refreshonly => true,
-    user => $graphite::params::web_user,
+    user => $packages::graphite::params::web_user,
   }
 
   file { "$apacheconf_dir/graphite.conf":
@@ -42,7 +42,7 @@ class graphite::web {
   }
 
   file { "/opt/graphite/storage":
-    owner => $graphite::params::web_user,
+    owner => $packages::graphite::params::web_user,
     subscribe => Exec["install-webapp"],
     recurse => inf
   }
