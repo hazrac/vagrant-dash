@@ -3,7 +3,7 @@ class packages::graphiteweb {
   include packages::graphiteparams
   include packages::aptget
 
-  $graphiterqdpkgs = "python-ldap, python-cairo, python-django, python-simplejson, libapache2-mod-wsgi, python-memcache, python-pysqlite2, python-rrdtool" 
+  $graphiterqdpkgs = ['python-ldap', 'python-cairo', 'python-django', 'python-simplejson', 'libapache2-mod-wsgi', 'python-memcache', 'python-pysqlite2', 'python-rrdtool']
   package { $graphiterqdpkgs:
       require => Exec['aptgetupdate'],
       ensure  => latest;
