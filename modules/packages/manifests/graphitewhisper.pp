@@ -22,5 +22,21 @@ class packages::graphitewhisper {
     require => Exec["unpack-whisper"],
   }
 
+  file { 'carbon-cache.init':
+    ensure  => file,
+    path    => '/etc/init.d/carbon-cache',
+    owner   => root,
+    group   => root,
+    mode    => '0744',
+    source  => 'puppet:///modules/packages/graphite/init/carbon-cache.init',
+  }
+  service { 'carbon-cache':
+    ensure     => running,
+    hasrestart => false,
+    hasstatus  => false,
+    start      => '/etc/init.d/carbon-cache start',
+    subscribe  => File['carbon.conf'],
+    require    => File['carbon-cache.init'],
+  }
 }
 
