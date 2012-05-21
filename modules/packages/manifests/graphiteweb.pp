@@ -53,11 +53,11 @@ class packages::graphiteweb {
   }
 
   file { 'local_settings.py':
-    ensure  => file,
-    path    => '/opt/graphite/webapp/graphite/local_settings.py',
-    owner   => root,
-    source  => 'puppet:///modules/packages/graphite/conf/local_settings.py',
-    require => Exec['install-webapp'],
+    ensure    => file,
+    path      => '/opt/graphite/webapp/graphite/local_settings.py',
+    owner     => root,
+    source    => 'puppet:///modules/packages/graphite/conf/local_settings.py',
+    subscribe => Exec['install-webapp'],
   }
 
   file { "/opt/graphite/conf/graphite.wsgi":
