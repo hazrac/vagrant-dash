@@ -15,14 +15,14 @@ In addition the configuration installs a puppet client which could be configured
 First get started by installing and setting up Vagrant and Virtualbox.  More information can be found here [Vagrant - getting started](http://vagrantup.com/docs/getting-started/index.html). You'll then need to follow the Vagrant instructions to add a new box which needs the short name "dev51512", you can download the base box from here [Dev Box](http://hazrac.morpheus.net/lucid32-dev51512.box).
 
 ### The following versions of software are part of the Puppet modules
-For Graphite, these can be found in: vagrant-dash/manifests/modules/packages/files/graphite/
+For StatsD, this can be found in: vagrant-dash/modules/packages/files/statsd/statsd/
+*  statsd-0.2.1
+*  NodeJS
+
+## These software packages are downloaded at the time of the puppet run
 *  carbon-0.9.9
 *  graphite-web-0.9.9
 *  whisper-0.9.9
-
-For StatsD, this can be found in: vagrant-dash/manifests/modules/packages/files/statsd/statsd/
-*  statsd-0.2.1
-*  NodeJS
 
 
 ### Once complete there are a few files you should consider editing:
