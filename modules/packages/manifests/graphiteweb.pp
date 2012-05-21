@@ -3,7 +3,8 @@ class packages::graphiteweb {
   include packages::graphiteparams
   include packages::aptget
 
-  $graphiterqdpkgs = ['python-ldap', 'python-cairo', 'python-django', 'python-simplejson', 'libapache2-mod-wsgi', 'python-memcache', 'python-pysqlite2', 'python-rrdtool']
+  $graphiterqdpkgs = ['apache2', 'apache2-mpm-worker', 'apache2-utils', 'apache2.2-common', 'libapr1', 'libaprutil1', 'libaprutil1-dbd-sqlite3', 'python3.1', 'libpython3.1', 'python3.1-minimal', 'libapache2-mod-wsgi', 'libaprutil1-ldap', 'memcached', 'python-cairo-dev', 'python-django', 'python-ldap', 'python-memcache', 'python-pysqlite2', 'sqlite3', 'erlang-os-mon', 'erlang-snmp', 'bzr', 'libapache2-mod-python', 'python-setuptools', 'python-twisted'] 
+
   package { $graphiterqdpkgs:
       require => Exec['aptgetupdate'],
       ensure  => latest;
@@ -38,7 +39,6 @@ class packages::graphiteweb {
   }
 
   exec { "initialize-db":
-    #command     => "/bin/bash -c 'export PYTHONPATH=/opt/graphite/webapp && /usr/bin/python manage.py syncdb'",
     command     => "/bin/bash -c 'export PYTHONPATH=/opt/graphite/webapp && /usr/bin/python manage.py syncdb'",
     cwd         => '/opt/graphite/webapp/graphite/',
     subscribe   => Exec["install-webapp"],
@@ -60,12 +60,12 @@ class packages::graphiteweb {
     subscribe => Exec['install-webapp'],
   }
 
-  file { 'carbon.conf':
-    ensure    => file,
-    path      => '/opt/graphite/conf/carbon.conf',
-    owner     => root,
-    source    => 'puppet:///modules/packages/graphite/conf/carbon.conf',
-    subscribe => Exec['install-webapp'],
+  file { 'local_settings.py':
+    ensure  => file,
+    path    => '/opt/graphite/webapp/graphite/local_settings.py',
+    owner   => root,
+    source  => 'puppet:///modules/packages/graphite/conf/local_settings.py',
+    require => Exec['install-webapp'],
   }
 
   file { "/opt/graphite/conf/graphite.wsgi":

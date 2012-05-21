@@ -4,7 +4,7 @@ A Vagrant config and set of Puppet scripts to build out a Graphite Dashboard wit
 
 ## Overview
 
-This is a Vagrant config file to spin up an Ubuntu Lucid server that is running Graphite and StatsD with all the necessary dependancies. The intended use of this VM is for development purposes.  With improvements the Puppet modules may be able to be modified to support a production build out.
+ This is a Vagrant config file to spin up an Ubuntu Lucid server that is running Graphite and StatsD with all the necessary dependancies. The intended use of this VM is for development purposes.  The base of the puppet manifests came from this project [Spikelab - puppet-graphite](https://github.com/spikelab/puppet-graphite) and then significant changes were made to add configurations I required.  With further improvements the Puppet modules may be able to be modified to support a production build out.
 
 In addition the configuration installs a puppet client which could be configured for regular puppet runs.
 
