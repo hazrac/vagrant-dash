@@ -9,6 +9,7 @@ include packages::puppetclient
 if $hostname == 'graphite' {
   include packages::graphiteweb
   include packages::graphitewhisper
+  include packages::carbon
   include packages::statsd
 }
 

@@ -52,14 +52,6 @@ class packages::graphiteweb {
     require   => Package[$graphiterqdpkgs],
   }
 
-  file { 'storage-schemas.conf':
-    ensure    => file,
-    path      => '/opt/graphite/conf/storage-schemas.conf',
-    owner     => root,
-    source    => 'puppet:///modules/packages/graphite/conf/storage-schemas.conf',
-    subscribe => Exec['install-webapp'],
-  }
-
   file { 'local_settings.py':
     ensure  => file,
     path    => '/opt/graphite/webapp/graphite/local_settings.py',
