@@ -1,4 +1,4 @@
-class packages::puppet-client {
+class packages::puppetclient {
 
  include packages::aptget
 
