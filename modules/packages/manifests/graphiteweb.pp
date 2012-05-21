@@ -34,13 +34,15 @@ class packages::graphiteweb {
   }
 
   file { "$graphiteparams::apacheconf_dir/graphite.conf":
-    source => "puppet:///modules/packages/graphite/conf/graphite-vhost.conf" ,
-    subscribe => Exec["install-webapp"],
+    source    => "puppet:///modules/packages/graphite/conf/graphite-vhost.conf",
+    subscribe => Exec['install-webapp'],
+    require   => Package['requiredpkgs'],
   }
 
   file { "/opt/graphite/conf/graphite.wsgi":
-    source => "puppet:///modules/packages/graphite/conf/graphite.wsgi",
+    source    => "puppet:///modules/packages/graphite/conf/graphite.wsgi",
     subscribe => Exec["install-webapp"],
+    require   => Package['requiredpkgs'],
   }
 
   file { "/opt/graphite/storage":
@@ -51,6 +53,7 @@ class packages::graphiteweb {
 
   package {
     [python-ldap, python-cairo, python-django, python-simplejson, libapache2-mod-wsgi, python-memcache, python-pysqlite2, python-rrdtool]:
+      alias   => 'requiredpkgs',
       require => Exec['aptgetupdate'],
       ensure  => latest;
   }
