@@ -31,6 +31,12 @@ class packages::graphiteweb {
     creates     => "/opt/graphite",
   }
 
+  exec { '/usr/bin/easy_install django-tagging':
+    require     => Package['python-django'],
+    subscribe   => Exec["install-webapp"],
+    refreshonly => true,
+  }
+
   exec { "initialize-db":
     #command     => "/bin/bash -c 'export PYTHONPATH=/opt/graphite/webapp && /usr/bin/python manage.py syncdb'",
     command     => "/bin/bash -c 'export PYTHONPATH=/opt/graphite/webapp && /usr/bin/python manage.py syncdb'",
@@ -44,6 +50,22 @@ class packages::graphiteweb {
     source    => "puppet:///modules/packages/graphite/conf/graphite-vhost.conf",
     subscribe => Exec['install-webapp'],
     require   => Package[$graphiterqdpkgs],
+  }
+
+  file { 'storage-schemas.conf':
+    ensure    => file,
+    path      => '/opt/graphite/conf/storage-schemas.conf',
+    owner     => root,
+    source    => 'puppet:///modules/packages/graphite/conf/storage-schemas.conf',
+    subscribe => Exec['install-webapp'],
+  }
+
+  file { 'carbon.conf':
+    ensure    => file,
+    path      => '/opt/graphite/conf/carbon.conf',
+    owner     => root,
+    source    => 'puppet:///modules/packages/graphite/conf/carbon.conf',
+    subscribe => Exec['install-webapp'],
   }
 
   file { "/opt/graphite/conf/graphite.wsgi":
