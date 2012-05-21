@@ -33,7 +33,7 @@ class packages::graphiteweb {
 
   exec { "initialize-db":
     #command     => "/bin/bash -c 'export PYTHONPATH=/opt/graphite/webapp && /usr/bin/python manage.py syncdb'",
-    command     => "/usr/bin/python manage.py syncdb",
+    command     => "/bin/bash -c 'export PYTHONPATH=/opt/graphite/webapp && /usr/bin/python manage.py syncdb'",
     cwd         => '/opt/graphite/webapp/graphite/',
     subscribe   => Exec["install-webapp"],
     refreshonly => true,
