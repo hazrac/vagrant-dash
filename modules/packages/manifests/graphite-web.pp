@@ -26,10 +26,11 @@ class packages::graphite-web {
   }
 
   exec { "initialize-db":
-    command => "bash -c 'export PYTHONPATH=/opt/graphite/webapp &&  cd /opt/graphite/webapp/graphite/ && python manage.py syncdb'",
-    subscribe => Exec["install-webapp"],
+    command     => "/bin/bash -c 'export PYTHONPATH=/opt/graphite/webapp && /usr/bin/python manage.py syncdb'",
+    cwd         => '/opt/graphite/webapp/graphite/',
+    subscribe   => Exec["install-webapp"],
     refreshonly => true,
-    user => "$graphite-params::web_user",
+    user        => "$graphite-params::web_user",
   }
 
   file { "$graphite-params::apacheconf_dir/graphite.conf":
