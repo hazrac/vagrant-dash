@@ -10,11 +10,11 @@ class packages::graphiteweb {
   }
 
   exec { "unpack-webapp":
-    # true is needed to work around a problem with execs and built ins. https://projects.puppetlabs.com/issues/4884 -- I believe this is fixed
-    command => "/bin/bash -c 'cd $graphiteparams::build_dir && tar -zxvf $graphiteparams::webapp_dl_loc",
-    subscribe => Exec["download-webapp"],
+    command     => "/bin/tar -zxvf $graphiteparams::webapp_dl_loc",
+    cwd         => "$graphiteparams::build_dir",
+    subscribe   => Exec["download-webapp"],
     refreshonly => true,
-    creates => "$graphiteparams::build_dir/graphite-web-0.9.9",
+    creates     => "$graphiteparams::build_dir/graphite-web-0.9.9",
   }
 
   exec { "install-webapp":
@@ -34,12 +34,12 @@ class packages::graphiteweb {
   }
 
   file { "$graphiteparams::apacheconf_dir/graphite.conf":
-    source => "puppet:///modules/graphite/graphite-apache-vhost.conf" ,
+    source => "puppet:///modules/packages/graphite/conf/graphite-vhost.conf" ,
     subscribe => Exec["install-webapp"],
   }
 
   file { "/opt/graphite/conf/graphite.wsgi":
-    source => "puppet:///modules/graphite/graphite.wsgi",
+    source => "puppet:///modules/packages/graphite/conf/graphite.wsgi",
     subscribe => Exec["install-webapp"],
   }
 
