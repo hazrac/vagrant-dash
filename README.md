@@ -19,7 +19,7 @@ For StatsD, this can be found in: vagrant-dash/modules/packages/files/statsd/sta
 *  statsd-0.2.1
 *  NodeJS
 
-## These software packages are downloaded at the time of the puppet run
+### These software packages are downloaded at the time of the puppet run
 *  carbon-0.9.9
 *  graphite-web-0.9.9
 *  whisper-0.9.9
