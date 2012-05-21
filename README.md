@@ -33,7 +33,7 @@ The following file should be renamed to *authorized_keys* and you should include
 
 The below manifest for users can be edited to include your own username and password
 
-*vagrant-dash/manifests/modules/users/manifests/init.pp*
+*vagrant-dash/modules/users/manifests/init.pp*
 
 ## Known Issues
 Normally this Vagrant config has quite a few VMs, I've slimmed it down to this one as it was the most useful.  Since moving it from a private repo to a public one a few things have broken, which I intent to fix shortly.  Notably:
