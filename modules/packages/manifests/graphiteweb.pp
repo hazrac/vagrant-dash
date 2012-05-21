@@ -4,14 +4,14 @@ class packages::graphiteweb {
   include packages::aptget
 
   exec { "download-webapp":
-    command => "wget -O $graphiteparams::webapp_dl_loc $graphiteparams::webapp_dl_url",
+    command => "/usr/bin/wget -O $graphiteparams::webapp_dl_loc $graphiteparams::webapp_dl_url",
     creates => "$graphiteparams::webapp_dl_loc",
     require => File["$graphiteparams::build_dir"],
   }
 
   exec { "unpack-webapp":
     # true is needed to work around a problem with execs and built ins. https://projects.puppetlabs.com/issues/4884 -- I believe this is fixed
-    command => "bash -c 'cd $graphiteparams::build_dir && tar -zxvf $graphiteparams::webapp_dl_loc",
+    command => "/bin/bash -c 'cd $graphiteparams::build_dir && tar -zxvf $graphiteparams::webapp_dl_loc",
     subscribe => Exec["download-webapp"],
     refreshonly => true,
     creates => "$graphiteparams::build_dir/graphite-web-0.9.9",
