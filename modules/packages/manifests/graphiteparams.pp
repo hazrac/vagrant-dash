@@ -1,8 +1,9 @@
 class packages::graphiteparams {
   $build_dir = '/tmp/graphite_build_root'
 
-  file { $build_dir:
+  file { $graphiteparams::build_dir:
    ensure => file,
+   mode => 0777,
   }
 
   $whisper_dl_url = "http://launchpad.net/graphite/0.9/0.9.9/+download/whisper-0.9.9.tar.gz"

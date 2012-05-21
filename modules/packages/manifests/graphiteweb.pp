@@ -18,11 +18,11 @@ class packages::graphiteweb {
   }
 
   exec { "install-webapp":
-    # true is needed to work around a problem with execs and built ins. https://projects.puppetlabs.com/issues/4884 -- I believe this is fixed
-    command => "cd $graphiteparams::build_dir/graphite-web-0.9.9 && python setup.py install",
-    subscribe => Exec["unpack-webapp"],
+    command     => "/usr/bin/python setup.py install",
+    cwd         => "$graphiteparams::build_dir/graphite-web-0.9.9",
+    subscribe   => Exec["unpack-webapp"],
     refreshonly => true,
-    creates => "/opt/graphite",
+    creates     => "/opt/graphite",
   }
 
   exec { "initialize-db":
