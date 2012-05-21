@@ -3,12 +3,12 @@
 include users
 include users::groups
 
-include packages::puppet-client
+include packages::puppetclient
 
 # If you wanted to add multiple hosts we would just want graphite and statsd on the graphite server
 if $hostname == 'graphite' {
-  include packages::graphite-web
-  include packages::graphite-whisper
+  include packages::graphiteweb
+  include packages::graphitewhisper
   include packages::statsd
 }
 
