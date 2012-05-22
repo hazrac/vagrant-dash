@@ -8,9 +8,9 @@ include packages::puppetclient
 # If you wanted to add multiple hosts we would just want graphite and statsd on the graphite server
 if $hostname == 'graphite' {
   include packages::graphiteweb
-  include packages::graphitewhisper
-  include packages::carbon
-  include packages::statsd
+#  include packages::graphitewhisper
+#  include packages::carbon
+#  include packages::statsd
 }
 
 # These are for everybody

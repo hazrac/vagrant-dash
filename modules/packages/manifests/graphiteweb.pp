@@ -25,11 +25,12 @@ class packages::graphiteweb {
   }
 
   exec { "install-webapp":
-    command     => "/usr/bin/sudo /usr/bin/python setup.py install",
+    command     => "/usr/bin/python setup.py install",
     cwd         => "$graphiteparams::build_dir/graphite-web-0.9.9",
     subscribe   => Exec["unpack-webapp"],
     refreshonly => true,
     creates     => "/opt/graphite",
+    user        => "root",
   }
 
   exec { '/usr/bin/easy_install django-tagging':
@@ -39,11 +40,13 @@ class packages::graphiteweb {
   }
 
   exec { "initialize-db":
-    command     => "/bin/bash -c 'export PYTHONPATH=/opt/graphite/webapp && /usr/bin/python manage.py syncdb'",
-    cwd         => '/opt/graphite/webapp/graphite/',
+    #command     => "/bin/bash -c 'export PYTHONPATH=/opt/graphite/webapp && /usr/bin/python manage.py syncdb'",
+    command     => "/usr/bin/python manage.py syncdb",
+    cwd         => '/opt/graphite/webapp/graphite',
     subscribe   => Exec["install-webapp"],
     refreshonly => true,
     user        => "$graphiteparams::web_user",
+    logoutput   => true,
   }
 
   file { "$graphiteparams::apacheconf_dir/graphite.conf":
