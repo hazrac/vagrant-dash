@@ -40,12 +40,10 @@ class packages::graphiteweb {
   }
 
   exec { "initialize-db":
-    require     => Exec['/usr/bin/easy_install django-tagging'],
+    require     => [Exec['/usr/bin/easy_install django-tagging'], Exec["install-webapp"]],
     command     => '/usr/bin/python manage.py syncdb --noinput',
     cwd         => '/opt/graphite/webapp/graphite',
-    subscribe   => Exec["install-webapp"],
     refreshonly => true,
-    #user       => "$graphiteparams::web_user",
     user        => "root",
   }
 
@@ -60,7 +58,7 @@ class packages::graphiteweb {
     path      => '/opt/graphite/webapp/graphite/local_settings.py',
     owner     => root,
     source    => 'puppet:///modules/packages/graphite/conf/local_settings.py',
-    subscribe => Exec['install-webapp'],
+    require   => Exec["install-webapp"],
   }
 
   file { "/opt/graphite/conf/graphite.wsgi":
