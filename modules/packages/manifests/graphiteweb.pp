@@ -47,7 +47,6 @@ class packages::graphiteweb {
     refreshonly => true,
     #user       => "$graphiteparams::web_user",
     user        => "root",
-    logoutput   => true,
   }
 
   file { "$graphiteparams::apacheconf_dir/graphite.conf":
