@@ -3,7 +3,7 @@ class packages::graphiteweb {
   include packages::graphiteparams
   include packages::aptget
 
-  $graphiterqdpkgs = ['apache2', 'apache2-mpm-worker', 'apache2-utils', 'apache2.2-common', 'libapr1', 'libaprutil1', 'libaprutil1-dbd-sqlite3', 'python3.1', 'libpython3.1', 'python3.1-minimal', 'libapache2-mod-wsgi', 'libaprutil1-ldap', 'memcached', 'python-cairo-dev', 'python-django', 'python-ldap', 'python-memcache', 'python-pysqlite2', 'sqlite3', 'erlang-os-mon', 'erlang-snmp', 'bzr', 'libapache2-mod-python', 'python-setuptools', 'python-twisted'] 
+  $graphiterqdpkgs = ['apache2', 'apache2-mpm-worker', 'apache2-utils', 'apache2.2-common', 'libapr1', 'libaprutil1', 'libaprutil1-dbd-sqlite3', 'python3.1', 'libpython3.1', 'python3.1-minimal', 'libapache2-mod-wsgi', 'libaprutil1-ldap', 'memcached', 'python-cairo-dev', 'python-django', 'python-ldap', 'python-memcache', 'python-pysqlite2', 'sqlite3', 'erlang-os-mon', 'erlang-snmp', 'libapache2-mod-python', 'python-setuptools', 'python-twisted'] 
 
   package { $graphiterqdpkgs:
       require => Exec['aptgetupdate'],
@@ -25,12 +25,13 @@ class packages::graphiteweb {
   }
 
   exec { "install-webapp":
-    command     => "/usr/bin/python setup.py install",
+    command     => "/usr/bin/python $graphiteparams::build_dir/graphite-web-0.9.9/setup.py install",
     cwd         => "$graphiteparams::build_dir/graphite-web-0.9.9",
     subscribe   => Exec["unpack-webapp"],
     refreshonly => true,
-    creates     => "/opt/graphite",
+    creates     => "/opt/graphite/webapp",
     user        => "root",
+    logoutput	=> true,
   }
 
   exec { '/usr/bin/easy_install django-tagging':
@@ -43,7 +44,7 @@ class packages::graphiteweb {
     require     => [Exec['/usr/bin/easy_install django-tagging'], Exec["install-webapp"]],
     command     => '/usr/bin/python manage.py syncdb --noinput',
     cwd         => '/opt/graphite/webapp/graphite',
-    refreshonly => true,
+    #refreshonly => true,
     user        => "root",
   }
 
@@ -68,8 +69,22 @@ class packages::graphiteweb {
   }
 
   file { "/opt/graphite/storage":
-    owner => "$graphiteparams::web_user",
+    owner     => "$graphiteparams::web_user",
     subscribe => Exec["install-webapp"],
-    recurse => inf
+    recurse   => inf
   }
+
+  file { '/etc/httpd':
+    ensure  => directory,
+    path    => '/etc/httpd',
+    owner   => root,
+  }
+
+  file { '/etc/httpd/wsgi':
+    ensure  => directory,
+    path    => '/etc/httpd/wsgi',
+    owner   => root,
+    require => File['/etc/httpd'],
+  }
+
 }
