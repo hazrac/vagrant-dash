@@ -40,12 +40,13 @@ class packages::graphiteweb {
   }
 
   exec { "initialize-db":
-    #command     => "/bin/bash -c 'export PYTHONPATH=/opt/graphite/webapp && /usr/bin/python manage.py syncdb'",
-    command     => "/usr/bin/python manage.py syncdb",
+    require     => Exec['/usr/bin/easy_install django-tagging'],
+    command     => '/usr/bin/python manage.py syncdb --noinput',
     cwd         => '/opt/graphite/webapp/graphite',
     subscribe   => Exec["install-webapp"],
     refreshonly => true,
-    user        => "$graphiteparams::web_user",
+    #user       => "$graphiteparams::web_user",
+    user        => "root",
     logoutput   => true,
   }
 
