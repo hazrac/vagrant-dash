@@ -25,7 +25,7 @@ class packages::graphiteweb {
   }
 
   exec { "install-webapp":
-    command     => "/usr/bin/python setup.py install",
+    command     => "/usr/bin/sudo /usr/bin/python setup.py install",
     cwd         => "$graphiteparams::build_dir/graphite-web-0.9.9",
     subscribe   => Exec["unpack-webapp"],
     refreshonly => true,
