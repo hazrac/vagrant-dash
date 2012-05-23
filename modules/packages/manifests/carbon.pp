@@ -19,7 +19,7 @@ class packages::carbon {
 
    exec { "install-carbon":
            # This doesn't work
-           command   => "PYTHONPATH=/opt/graphitewebapp:/opt/graphite/whisper /usr/bin/python $graphiteparams::build_dir/carbon-0.9.9/setup.py install",
+           command   => "/bin/bash -c 'PYTHONPATH=/opt/graphitewebapp:/opt/graphite/whisper /usr/bin/python $graphiteparams::build_dir/carbon-0.9.9/setup.py install'",
            subscribe => Exec["unpack-carbon"],
            cwd       => "$graphiteparams::build_dir/carbon-0.9.9",
    }
