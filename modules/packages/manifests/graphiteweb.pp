@@ -31,7 +31,6 @@ class packages::graphiteweb {
     refreshonly => true,
     creates     => "/opt/graphite/webapp",
     user        => "root",
-    logoutput	=> true,
   }
 
   exec { '/usr/bin/easy_install django-tagging':
