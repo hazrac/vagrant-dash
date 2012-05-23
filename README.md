@@ -8,7 +8,7 @@ A Vagrant config and set of Puppet scripts to build out a Graphite Dashboard wit
 
 In addition the configuration installs a puppet client which could be configured for regular puppet runs.
 
- There are plenty of improvements that can be made (look at graphite.pp) and any controbutions are welcome.
+ There are plenty of improvements that can be made and any contributions are welcome.
 
 ## Configuration
 
@@ -49,4 +49,7 @@ If you insist on using this before I fix these problems you can start the VM and
 *  Add Gdash to the install
 *  Add Tasseo as well
 *  Take Graphite manifests out of the packages module and create its own module
-*  Lots more
+
+## Contact
+
+David Mitchell / dmitchell@hazrac.org / http://www.hazrac.org / @hazrac
