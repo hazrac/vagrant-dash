@@ -40,7 +40,7 @@ Normally this Vagrant config has quite a few VMs, I've slimmed it down to this o
 *  The Apache config isn't correct
 *  Carbon doesn't start due to the timing in the puppet script
 
-If you insist on using this before I fix these problems you can start the VM and then go to the VM's IP in your web browser, which will bring up the graphite dashboard.  If you click on a broken graph it will tell you what the issue is.
+If you insist on using this before I fix these problems you can make adjustments to the vhost config for Apache and manually start carbon with the init script provided in /etc/init.d.
 
 ## TODO
 
