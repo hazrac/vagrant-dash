@@ -5,8 +5,8 @@
 WSGISocketPrefix /etc/httpd/wsgi/
 WSGIImportScript /opt/graphite/conf/graphite.wsgi process-group=graphite application-group=%{GLOBAL}
 
-<VirtualHost *:80>
-        ServerName graphite
+<VirtualHost <% hostname %>:80>
+        ServerName <% hostname %> 
         DocumentRoot "/opt/graphite/webapp"
         ErrorLog /opt/graphite/storage/log/webapp/error.log
         CustomLog /opt/graphite/storage/log/webapp/access.log common

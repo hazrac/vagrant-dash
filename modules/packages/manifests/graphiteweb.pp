@@ -48,7 +48,7 @@ class packages::graphiteweb {
   }
 
   file { "$graphiteparams::apacheconf_dir/graphite.conf":
-    source    => "puppet:///modules/packages/graphite/conf/graphite-vhost.conf",
+    source    => template('apache/conf/graphite-vhost.conf.erb'), 
     subscribe => Exec['install-webapp'],
     require   => Package[$graphiterqdpkgs],
   }
