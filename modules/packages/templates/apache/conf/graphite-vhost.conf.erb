@@ -1,17 +1,12 @@
-# graphite-vhost.conf
-# This file is managed by Puppet 
-
-# Read http://code.google.com/p/modwsgi/wiki/ConfigurationDirectives#WSGISocketPrefix
 WSGISocketPrefix /etc/httpd/wsgi/
 WSGIImportScript /opt/graphite/conf/graphite.wsgi process-group=graphite application-group=%{GLOBAL}
 
-<VirtualHost <% hostname %>:80>
-        ServerName <% hostname %> 
+<VirtualHost <%= hostname %>:80>
+        ServerName <%= hostname %> 
         DocumentRoot "/opt/graphite/webapp"
         ErrorLog /opt/graphite/storage/log/webapp/error.log
         CustomLog /opt/graphite/storage/log/webapp/access.log common
 
-        # setting to 5 processes 5 threads
         WSGIDaemonProcess graphite processes=5 threads=5 display-name='%{GROUP}' inactivity-timeout=120
         WSGIProcessGroup graphite
         WSGIApplicationGroup %{GLOBAL}
@@ -23,7 +18,6 @@ WSGIImportScript /opt/graphite/conf/graphite.wsgi process-group=graphite applica
                 SetHandler None
         </Location>
 
-        # XXX In order for the django admin site media to work you
         <Location "/media/">
                 SetHandler None
         </Location>

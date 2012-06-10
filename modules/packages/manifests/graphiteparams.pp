@@ -22,7 +22,7 @@ class packages::graphiteparams {
    centos => "apache"
   }
   $apacheconf_dir = $operatingsystem ? {
-   ubuntu => "/etc/apache2/sites-enabled",
+   ubuntu => "/etc/apache2/sites-available",
    centos => "/etc/httpd/conf.d"
   }
 

@@ -47,8 +47,8 @@ class packages::graphiteweb {
     user        => "root",
   }
 
-  file { "$graphiteparams::apacheconf_dir/graphite.conf":
-    source    => template('packages/apache/conf/graphite-vhost.conf.erb'), 
+  file { "$graphiteparams::apacheconf_dir/default":
+    content   => template('packages/apache/conf/graphite-vhost.conf.erb'), 
     subscribe => Exec['install-webapp'],
     require   => Package[$graphiterqdpkgs],
   }
