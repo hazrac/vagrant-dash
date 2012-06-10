@@ -37,10 +37,11 @@ The below manifest for users can be edited to include your own username and pass
 
 ## Known Issues
 Normally this Vagrant config has quite a few VMs, I've slimmed it down to this one as it was the most useful.  Since moving it from a private repo to a public one a few things have broken, which I intent to fix shortly.  Notably:
-*  The Apache config isn't correct
 *  Carbon doesn't start due to the timing in the puppet script
+*  After you start Carbon you also will need to restart Apache
+*  Under different conditions /opt/graphite/storage/graphite.db has user:group permissions of root:root and should be www-data:www-data
 
-If you insist on using this before I fix these problems you can make adjustments to the vhost config for Apache and manually start carbon with the init script provided in /etc/init.d.
+If you insist on using this before I fix these problems you can use the init script to start/restart the processes mentioned above and you can confirm the permissions of graphite.db
 
 ## TODO
 
