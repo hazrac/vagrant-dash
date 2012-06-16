@@ -1,4 +1,4 @@
-class packages::graphiteparams {
+class graphite::graphiteparams {
   $build_dir = '/tmp/graphite_build_root'
 
   file { $graphiteparams::build_dir:
