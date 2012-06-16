@@ -1,7 +1,7 @@
-class packages::carbon {
+class graphite::carbon {
 
- include packages::graphiteparams
- include packages::aptget
+ include graphite::graphiteparams
+ include aptget
 
  exec { "download-carbon":
     command => "/usr/bin/wget -O $graphiteparams::carbon_dl_loc $graphiteparams::carbon_dl_url",
@@ -27,14 +27,14 @@ class packages::carbon {
            ensure    => file,
            path      => '/opt/graphite/conf/storage-schemas.conf',
            owner     => root,
-           source    => 'puppet:///modules/packages/graphite/conf/storage-schemas.conf',
+           source    => 'puppet:///modules/graphite/graphite/conf/storage-schemas.conf',
            subscribe => Exec["install-carbon"],
    }
    file { 'carbon.conf':
            ensure    => file,
            path      => '/opt/graphite/conf/carbon.conf',
            owner     => root,
-           source    => 'puppet:///modules/packages/graphite/conf/carbon.conf',
+           source    => 'puppet:///modules/graphite/graphite/conf/carbon.conf',
            subscribe => Exec["install-carbon"],
    }
    file { 'carbon-cache.init':
@@ -43,7 +43,7 @@ class packages::carbon {
            owner   => root,
            group   => root,
            mode    => '0744',
-           source  => 'puppet:///modules/packages/graphite/init/carbon-cache.init',
+           source  => 'puppet:///modules/graphite/graphite/init/carbon-cache.init',
    }
    service { 'carbon-cache':
            ensure     => running,
