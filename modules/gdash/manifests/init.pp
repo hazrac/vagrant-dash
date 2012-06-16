@@ -1,14 +1,11 @@
-class packages {
-  include packages::aptget
+class gdash {
+  include aptget
 
-  package { 'facter':
-    ensure   => present,
-    require  => Exec['aptgetupdate'],
+  package { gdash:
+  	    provider => gem,
+	    ensure   => present,
   }
 
-  package { 'dkms':
-    ensure   => present,
-    require  => Exec['aptgetupdate'],
-  } 
-
+	# Need Unicorn
+	# Need a lot of other junk :)
 }
