@@ -1,21 +1,21 @@
 # Basic instructions from: http://geek.michaelgrace.org/2011/09/installing-statsd-on-ubuntu-server-10-04/
 
-class packages::statsd {
-  include packages::aptget
+class graphite::statsd {
+  include aptget
 
 file { '/opt/statsd':
     ensure   => directory,
     owner    => root,
     recurse  => true,
     checksum => md5,
-    source   =>'puppet:///modules/packages/statsd/statsd',
+    source   =>'puppet:///modules/graphite/statsd/statsd',
   }
 
 file { '/etc/init/statsd.conf':
     ensure   => present,
     owner    => root,
     checksum => md5,
-    source   =>'puppet:///modules/packages/statsd/init/statsd.conf',
+    source   =>'puppet:///modules/graphite/statsd/init/statsd.conf',
   }
 
 file { '/etc/init.d/statsd':
