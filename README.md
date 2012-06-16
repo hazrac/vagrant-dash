@@ -15,7 +15,7 @@ In addition the configuration installs a puppet client which could be configured
 First get started by installing and setting up Vagrant and Virtualbox.  More information can be found here [Vagrant - getting started](http://vagrantup.com/docs/getting-started/index.html). You'll then need to follow the Vagrant instructions to add a new box which needs the short name "dev51512", you can download the base box from here [Dev Box](http://hazrac.morpheus.net/lucid32-dev51512.box).
 
 ### The following versions of software are part of the Puppet modules
-For StatsD, this can be found in: vagrant-dash/modules/packages/files/statsd/statsd/
+For StatsD, this can be found in: vagrant-dash/modules/graphite/files/statsd/statsd/
 *  statsd-0.2.1
 *  NodeJS
 
