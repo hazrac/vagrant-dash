@@ -1,6 +1,6 @@
-class packages::graphitewhisper {
+class graphite::graphitewhisper {
 
-  include packages::graphiteparams
+  include graphite::graphiteparams
   
   exec { "download-whisper":
     command => "/usr/bin/wget -O $graphiteparams::whisper_dl_loc $graphiteparams::whisper_dl_url",
