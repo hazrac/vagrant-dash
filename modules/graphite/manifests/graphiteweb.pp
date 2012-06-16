@@ -1,7 +1,7 @@
-class packages::graphiteweb {
+class graphite::graphiteweb {
 
-  include packages::graphiteparams
-  include packages::aptget
+  include graphite::graphiteparams
+  include aptget
 
   $graphiterqdpkgs = ['apache2', 'apache2-mpm-worker', 'apache2-utils', 'apache2.2-common', 'libapr1', 'libaprutil1', 'libaprutil1-dbd-sqlite3', 'python3.1', 'libpython3.1', 'python3.1-minimal', 'libapache2-mod-wsgi', 'libaprutil1-ldap', 'memcached', 'python-cairo-dev', 'python-django', 'python-ldap', 'python-memcache', 'python-pysqlite2', 'sqlite3', 'erlang-os-mon', 'erlang-snmp', 'libapache2-mod-python', 'python-setuptools', 'python-twisted'] 
 
@@ -48,7 +48,7 @@ class packages::graphiteweb {
   }
 
   file { "$graphiteparams::apacheconf_dir/default":
-    content   => template('packages/apache/conf/graphite-vhost.conf.erb'), 
+    content   => template('graphite/apache/conf/graphite-vhost.conf.erb'), 
     subscribe => Exec['install-webapp'],
     require   => Package[$graphiterqdpkgs],
   }
@@ -57,12 +57,12 @@ class packages::graphiteweb {
     ensure    => file,
     path      => '/opt/graphite/webapp/graphite/local_settings.py',
     owner     => root,
-    source    => 'puppet:///modules/packages/graphite/conf/local_settings.py',
+    source    => 'puppet:///modules/graphite/graphite/conf/local_settings.py',
     require   => Exec["install-webapp"],
   }
 
   file { "/opt/graphite/conf/graphite.wsgi":
-    source    => "puppet:///modules/packages/graphite/conf/graphite.wsgi",
+    source    => "puppet:///modules/graphite/graphite/conf/graphite.wsgi",
     subscribe => Exec["install-webapp"],
     require   => Package[$graphiterqdpkgs],
   }
