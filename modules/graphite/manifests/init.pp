@@ -1,11 +1,7 @@
-class packages {
-  include packages::aptget
+class graphite {
+  include aptget
 
-  package { 'facter':
-    ensure   => present,
-    require  => Exec['aptgetupdate'],
-  }
-
+  # I don't recall why I need this, need to verify
   package { 'dkms':
     ensure   => present,
     require  => Exec['aptgetupdate'],

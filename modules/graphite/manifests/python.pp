@@ -1,6 +1,6 @@
-class packages::python {
+class graphite::python {
 
-  include packages::aptget
+  include aptget
 
   package { 'python':
     ensure => present,
