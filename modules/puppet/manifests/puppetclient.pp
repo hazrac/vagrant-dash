@@ -1,6 +1,6 @@
-class packages::puppetclient {
+class puppet::puppetclient {
 
- include packages::aptget
+ include aptget
 
  package { 'facter':
    ensure  => present,
@@ -31,14 +31,14 @@ class packages::puppetclient {
    path    => '/etc/puppet/puppet.conf',
    ensure  => file,
    require => Package['puppet'],
-   source  => 'puppet:///modules/packages/puppet/puppet-client.conf',
+   source  => 'puppet:///modules/puppet/puppet/puppet-client.conf',
   }
 
   file { 'default_puppet' :
    path => '/etc/default/puppet',
    ensure => file,
    require => Package['puppet'],
-   source => 'puppet:///modules/packages/puppet/etc_default_puppet',
+   source => 'puppet:///modules/puppet/puppet/etc_default_puppet',
   }
 
   file { 'puppet_key_dir':
@@ -46,7 +46,7 @@ class packages::puppetclient {
     ensure  => directory,
     owner   => puppet,
     group   => puppet,
-    source  => "puppet:///modules/packages/puppet/ssl-$::hostname",
+    source  => "puppet:///modules/puppet/puppet/ssl-$::hostname",
     recurse => true,
     ignore  => '.svn',
     purge => true,
